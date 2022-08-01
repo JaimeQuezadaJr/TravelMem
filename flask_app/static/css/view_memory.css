@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url("/static/assets/vintage_memories.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.travel-logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+.navbar-brand {
+    font-size: 1.6em; 
+    font-weight: 200;
+
+}
+.nav-link {
+    font-size: 1.1em;
+    font-weight: 200;
+}
+nav {
+    background-color: slategrey;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    background-color: blanchedalmond;
+    /* background-color: #febb11; */
+    width: 26rem;
+}
+h4 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    
+}
+.wrapper1 {
+    display: flex;
+    justify-content: center;
+
+}
+
+.btn {
+    /* border: 1px solid black; */
+    /* background-color: transparent; */
+    font-weight: 200;
+    background-color: #febb11;
+    color: white;
+    /* background-image: url('assets/loveTravel logo.jpeg'); */
+}
+
+.wrapper-R {
+    width: auto;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-weight: 200;
+}
+
+.form-control {
+    font-weight: 200;
+}
+.table {
+    font-weight: 200;
+}
+
+th {
+    font-weight: 200;
+    font-size: 1.3em;
+}
+.card {
+    font-weight: 200;
+}
+h5 {
+    font-weight: 200;
+}
+
+.date {
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+}
+
+img {
+    width: auto;
+    max-width: 500px;
+    height: auto;
+    max-height: 500px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: slategrey;
+    height: 2rem;
+ }

@@ -1,0 +1,59 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url("/static/assets/vintage_memories.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.travel-logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+.navbar-brand {
+    font-size: 1.6em;
+    font-weight: 200;
+
+} 
+.nav-link {
+    font-size: 1.1em;
+    font-weight: 200;
+}
+nav {
+    background-color: slategrey;
+}
+.card {
+    background-color: blanchedalmond;
+    border-radius: 1rem;
+}
+
+h1 {
+    /* font-size: 2rem; */
+    font-weight: 200;
+    color: black;
+}
+
+.btn {
+    border: 1px solid black;
+    background-color: #ef4c23;
+    font-weight: 200;
+    /* width: 200px; */
+    color: white;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: slategrey;
+    height: 2rem;
+ }
+
+ card {
+    width: 36rem;
+ }
