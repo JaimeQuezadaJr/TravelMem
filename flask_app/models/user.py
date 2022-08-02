@@ -127,9 +127,9 @@ class User:
         if len(results) == 0:
             return None # Return None as we can only get at most one item
         else:
-            # Create the Director
+            # Create the user
             this_user_instance = cls(results[0]) # Only holds data for the user itself
-            # Loop through each movie and then link to the list of movies for this user
+            # Loop through each memory and then link to the list of memories for this user
             for this_memory_dictionary in results:
                 """
                 Create a movie 
@@ -147,11 +147,11 @@ class User:
                     "created_at": this_memory_dictionary["memories.created_at"], # Notice the table name here due to duplicate column names!!
                     "updated_at": this_memory_dictionary["memories.updated_at"], # Notice the table name here due to duplicate column names!!
                 }
-                # Creating a Movie
+                # Creating a memory
                 this_memory_instance = memory.Memory(new_memory_dictionary)
-                # Add this Movie to the list of movies for this user
+                # Add this memory to the list of memories for this user
                 this_user_instance.memories.append(this_memory_instance)
-            # Return the user - with all Movies linked
+            # Return the user - with all memories linked
             return this_user_instance
     # Future: You will use static methods to perform validations
     # @staticmethod

@@ -3,7 +3,7 @@ from flask import flash, request
 from flask_app.models import user   
 
 class Memory:
-    db_name = "travel_mem_schema"
+    db_name = "travel_mem_schema" 
     def __init__( self , data ):
         self.id = data['id']
         self.location = data['location']

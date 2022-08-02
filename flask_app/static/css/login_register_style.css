@@ -42,7 +42,7 @@ h1 {
     font-weight: 200;
     /* width: 200px; */
 }
-.wrapper-L {
+.wrapper-L { 
     width: auto;
     display: flex;
     justify-content: center;
