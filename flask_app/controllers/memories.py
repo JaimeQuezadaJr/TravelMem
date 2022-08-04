@@ -97,7 +97,7 @@ def save_memory():
     return redirect('/dashboard')
 
 
-
+ 
 @app.route('/delete/<int:id>')
 def delete_memory(id):
     data = {

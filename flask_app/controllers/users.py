@@ -126,7 +126,7 @@ def logout():
     return redirect('/')
 
 @app.route('/dashboard')
-def dashboard():
+def dashboard(): 
     if 'user_id' in session:
         data = {
             "id": session['user_id']
