@@ -17,6 +17,8 @@ def new_memory():
 
 @app.route('/memory/edit/<int:id>')
 def edit_memory_page(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
     data = {
             "id":id,
     }
@@ -27,6 +29,8 @@ def allowed_file(filename):
 
 @app.route('/update_memory/<int:id>', methods = ['POST'])
 def edit_memory(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
     if not memory.Memory.validate_memory(request.form):
         return redirect(f'/memory/edit/{id}')
     if 'img_name' not in request.files:
@@ -63,6 +67,8 @@ def edit_memory(id):
 
 @app.route('/create_memory', methods = ['POST'])
 def save_memory():
+    if 'user_id' not in session:
+        return redirect('/logout')
     if not memory.Memory.validate_memory(request.form):
         return redirect('/memory/new')
     if 'img_name' not in request.files:
@@ -142,6 +148,8 @@ def grab_weather(place):
 
 @app.route('/memory/<int:id>')
 def memory_info(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
     data = {
         'id':id,
     }
