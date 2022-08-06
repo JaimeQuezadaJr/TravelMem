@@ -11,7 +11,7 @@
     <title>Register</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark w3-animate-right">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark w3-animate-right">
         <div class="container">
             <a href="/" class="navbar-brand"><img class="travel-logo" src="{{ url_for('static', filename='/assets/feather-logo.png') }}" alt="travel logo">TravelMem</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -32,8 +32,8 @@
             </div>
         </div> 
     </nav> 
-    <div class="wrapper-R w3-animate-left m-3">
-        <form class="col-lg-3 p-3 mt-3" action="/update_profile/{{ user.id }}" method="post" enctype="multipart/form-data">
+    <div class="wrapper-R w3-animate-left m-3 mt-5">
+        <form class="col-lg-3 p-3 mt-5" action="/update_profile/{{ user.id }}" method="post" enctype="multipart/form-data">
             <h3>Update Profile</h3>
             <div class="mb-2">
                 <label for="first_name" class="form-label">First Name</label>
@@ -58,7 +58,7 @@
             {% with messages = get_flashed_messages(category_filter=['register']) %}     
                         {% if messages %}                           
                             {% for message in messages %}            
-                                <p class="validation"> - {{ message }}</p>                   
+                                <p class="validation"> {{ message }}</p>                   
                             {% endfor %}
                         {% endif %}
                     {% endwith %}

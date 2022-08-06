@@ -11,7 +11,7 @@
     <title>Memory</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark w3-animate-top">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark w3-animate-top">
         <div class="container">
             <a href="/" class="navbar-brand"><img class="travel-logo" src="{{ url_for('static', filename='/assets/feather-logo.png') }}" alt="travel logo">TravelMem</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -37,8 +37,8 @@
     </nav>
     <section class="p-2 text-center" >
         <div class="container">
-            <div class="d-flex justify-content-center mt-2">
-                <div class="header">
+            <div class="d-flex justify-content-center mt-5">
+                <div class="header mt-5">
                     {% if session['user_id'] == all_memories.id %}
                     <h4>My Memories</h4> 
                     {% else %}

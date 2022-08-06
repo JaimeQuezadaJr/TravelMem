@@ -67,6 +67,7 @@ form {
 
 .validation {
     color: red;
+    font-weight: 500;
 }
 
 #footer {
@@ -75,4 +76,4 @@ form {
     width: 100%;
     background-color: slategrey;
     height: 2rem;
- }
+}

@@ -40,17 +40,17 @@ def register():
     if not user.User.validate_user(request.form):
         return redirect('/register_page')
     if 'profile_pic' not in request.files:
-        flash('No file part in form.', 'register')
+        flash('No file part in form', 'register')
         return redirect("/register_page")
     file = request.files['profile_pic']
     # If the user does not select a file, the browser submits an
     # empty file without a filename.
     if file.filename == '':
-        flash('No file uploaded.', 'register')
+        flash('No file uploaded', 'register')
         return redirect("/register_page")
     # If invalid file type
     if not allowed_file(file.filename):
-        flash("File type is incorrect.", 'register')
+        flash("File type is incorrect", 'register')
         return redirect("/register_page")
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)

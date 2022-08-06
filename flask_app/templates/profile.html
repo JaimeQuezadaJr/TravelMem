@@ -11,7 +11,7 @@
     <title>Profile</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark w3-animate-top">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark w3-animate-top">
         <div class="container">
             <a href="/" class="navbar-brand"><img class="travel-logo" src="{{ url_for('static', filename='/assets/feather-logo.png') }}" alt="travel logo">TravelMem</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -36,8 +36,8 @@
         </div>
     </nav>
     <div class="container w3-animate-top"> 
-        <div class="d-flex flex-wrap justify-content-center w3-animate-zoom">
-            <div class="card m-3 text-center" style="width: 18rem;">
+        <div class="d-flex flex-wrap justify-content-center w3-animate-zoom mt-5">
+            <div class="card m-5 text-center" style="width: 18rem;">
                 <div class="card-body">
                     <img src="{{ url_for('static', filename='images/'+user.profile_pic) }}" alt="..." class="rounded-circle mb-3">
                     <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>

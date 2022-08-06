@@ -71,4 +71,9 @@ form {
     width: 100%;
     background-color: slategrey;
     height: 2rem;
- }
+}
+
+.validation {
+    color: red;
+    font-weight: 500;
+}

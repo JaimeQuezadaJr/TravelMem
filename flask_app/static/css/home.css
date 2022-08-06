@@ -19,7 +19,6 @@ body {
 .navbar-brand {
     font-size: 1.6em;
     font-weight: 200;
-
 } 
 .nav-link {
     font-size: 1.1em;
@@ -54,6 +53,3 @@ h1 {
     height: 2rem;
  }
 
- card {
-    width: 36rem;
- }

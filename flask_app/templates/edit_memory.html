@@ -11,7 +11,7 @@
     <title>Share Memory</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark w3-animate-top">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark w3-animate-top">
         <div class="container">
             <a href="#" class="navbar-brand"><img class="travel-logo" src="{{ url_for('static', filename='/assets/feather-logo.png') }}" alt="travel logo">TravelMem</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -33,8 +33,8 @@
         </div>
     </nav>
     <div class="container w3-animate-zoom">
-        <div class="wrapper-R mb-3">
-            <form class="col-lg-5 p-3 mt-3 mb-4" action="/update_memory/{{this_memory.id}}" method="post" enctype="multipart/form-data">
+        <div class="wrapper-R mb-3 mt-5">
+            <form class="col-lg-5 p-3 mt-5 mb-4" action="/update_memory/{{this_memory.id}}" method="post" enctype="multipart/form-data">
                 <h3>Edit {{this_memory.location}} Memory</h3>
                 <div class="mb-2">
                     <label for="location" class="form-label">Location</label>
@@ -59,7 +59,7 @@
                     {% with messages = get_flashed_messages(category_filter=['memory']) %}     
                         {% if messages %}                           
                             {% for message in messages %}            
-                                <p> - {{ message }}</p>                   
+                                <p class="validation"> {{ message }}</p>                   
                             {% endfor %}
                         {% endif %}
                     {% endwith %}

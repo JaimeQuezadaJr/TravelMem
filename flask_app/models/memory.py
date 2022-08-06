@@ -114,7 +114,7 @@ class Memory:
     @staticmethod
     def validate_memory(memory):
         is_valid = True
-        if len(memory['location']) < 3 or str.isalpha(memory['location']) == False:
+        if len(memory['location']) < 3 or (memory['location']).replace(' ', '').isalpha() == False:
             flash("Location must be at least 3 characters long and 1 word only.", "memory")
             is_valid = False
         if len(memory['country']) < 3 or (memory['country']).replace(' ', '').isalpha() == False:

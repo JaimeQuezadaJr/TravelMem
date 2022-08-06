@@ -11,7 +11,7 @@
     <title>Home Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark w3-animate-top">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark w3-animate-top">
         <div class="container">
             <a href="/" class="navbar-brand"><img class="travel-logo" src="{{ url_for('static', filename='/assets/feather-logo.png') }}" alt="travel logo">TravelMem</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -29,28 +29,28 @@
                         <a class="nav-link" style="color: white;" href="/memory/new">Share</a>
                     </li>
                     <li class="nav-item"> 
-                      <a class="nav-link" style="color: white;" href="/logout">Logout</a>
+                        <a class="nav-link" style="color: white;" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
         </div> 
     </nav>
-    <div class="container w3-animate-top mb-4">
-        <div class="dashboard d-flex justify-content-center m-3">
-            <div class="card mt-3 text-center col-8">
+    <div class="container w3-animate-top mb-4"> 
+        <div class="dashboard d-flex justify-content-center mb-3 mt-5">
+            <div class="card mt-5 text-center col-8">
                 <h5 class="card-header">Welcome {{ user.first_name }} !</h5>
                 <div class="card-body">
-                  <h5 class="card-title">Discover Travel Memories</h5>
-                  <p class="card-text">View new travel memories from the users below!</p>
-                  <a href="/memory/new"><button type="button" class="btn btn-light">Share Memory</button></a>
-                  <a href="/memory/{{user.id}}"><button type="button" class="btn btn-light">View My Memories</button></a>
-                  <a href="/profile/{{user.id}}"><button type="button" class="btn btn-light">View My Profile</button></a>
+                    <h5 class="card-title">Discover Travel Memories</h5>
+                    <p class="card-text">View new travel memories from the users below!</p>
+                    <a href="/memory/new"><button type="button" class="btn btn-light">Share Memory</button></a>
+                    <a href="/memory/{{user.id}}"><button type="button" class="btn btn-light">View My Memories</button></a>
+                    <a href="/profile/{{user.id}}"><button type="button" class="btn btn-light">View My Profile</button></a>
                 </div>
             </div>
         </div>
         <div class="d-flex flex-wrap justify-content-center w3-animate-zoom">
-          {% for this_one_user in all_users %}
-          {% if this_one_user.id != user.id %}
+            {% for this_one_user in all_users %}
+            {% if this_one_user.id != user.id %}
             <div class="card m-3 text-center" style="width: 18rem;">
                 <div class="card-body">
                     <img src="{{ url_for('static', filename='images/'+this_one_user.profile_pic) }}" alt="..." class="rounded-circle mb-3">
@@ -58,10 +58,10 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{this_one_user.city}}, {{this_one_user.state}}</h6>
                     
                     <p class="card-text"><span class="memory-title">Memories In</span> <br/>
-                      {% for this_memory in memories %}
-                      {% if this_one_user.id == this_memory.user_id%}
-                      <span class="places">|{{this_memory.location}}|</span>
-                      {% endif %}
+                        {% for this_memory in memories %}
+                        {% if this_one_user.id == this_memory.user_id%}
+                        <span class="places">|{{this_memory.location}}|</span>
+                        {% endif %}
                     {% endfor %}
                     </p>
                     <a href="/memory/{{this_one_user.id}}" class="card-link"><button type="button" class="btn btn-light mt-3">View Memories</button></a>
