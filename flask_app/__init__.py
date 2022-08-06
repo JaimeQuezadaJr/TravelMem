@@ -1,8 +1,12 @@
 from flask import Flask
-app = Flask(__name__)
-
 import os
+from dotenv import load_dotenv
+import logging
+
+app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY")  
+
+# logging.basicConfig(filename='record.log', level=logging.ERROR)
 
 UPLOAD_FOLDER = '/static/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
