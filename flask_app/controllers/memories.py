@@ -82,7 +82,7 @@ def save_memory():
         return redirect("/memory/new")
     # If invalid file type
     if not allowed_file(file.filename):
-        flash("File type is incorrect.", 'memory')
+        flash("File type is incorrect. Only .png, .jpg, .jpeg, .gif files allowed", 'memory')
         return redirect("/memory/new")
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)

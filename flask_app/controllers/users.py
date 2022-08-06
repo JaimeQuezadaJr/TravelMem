@@ -87,7 +87,7 @@ def update_profile(id):
         return redirect(f"/user/edit/{id}")
     # If invalid file type
     if not allowed_file(file.filename):
-        flash("File type is incorrect.", 'update')
+        flash("File type is incorrect. Only .png, .jpg, .jpeg, .gif files allowed", 'update')
         return redirect(f"/user/edit/{id}")
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
