@@ -50,7 +50,7 @@ def register():
         return redirect("/register_page")
     # If invalid file type
     if not allowed_file(file.filename):
-        flash("File type is incorrect", 'register')
+        flash("File type is incorrect. Only .png, .jpg, .jpeg, .gif files allowed", 'register')
         return redirect("/register_page")
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
