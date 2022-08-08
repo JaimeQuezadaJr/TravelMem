@@ -75,7 +75,6 @@ class User:
         is_valid = True
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL('travel_mem_schema').query_db(query, user)
-
         if len(user['first_name']) < 2 or str.isalpha(user['first_name']) == False:
             flash("First Name must be at least 2 characters long.", "register")
             is_valid = False
@@ -136,7 +135,7 @@ class User:
                 """
                 # Create a new dictionary for the user data
                 new_memory_dictionary = {
-                    # Table name = table you're joining with - in this case, movies
+                    # Table name = table you're joining with - in this case, memories
                     "id": this_memory_dictionary["memories.id"], # Notice the table name here due to duplicate column names!!
                     "location": this_memory_dictionary["location"],
                     "country": this_memory_dictionary["country"],
