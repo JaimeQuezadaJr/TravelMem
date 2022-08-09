@@ -23,7 +23,8 @@ def edit_memory_page(id):
             "id":id,
     }
     return render_template('edit_memory.html', this_memory = memory.Memory.get_memory_by_id(data))
-
+    
+# function needed for images file type
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
