@@ -85,7 +85,7 @@ def update_profile(id):
     if file.filename == '':
         flash('No file uploaded.', 'update')
         return redirect(f"/user/edit/{id}")
-    # If invalid file type
+    # If invalid file type of photo
     if not allowed_file(file.filename):
         flash("File type is incorrect. Only .png, .jpg, .jpeg, .gif files allowed", 'update')
         return redirect(f"/user/edit/{id}")

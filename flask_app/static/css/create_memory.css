@@ -23,6 +23,7 @@ body {
 .nav-link {
     font-size: 1.1em;
     font-weight: 200;
+    color: white;
 }
 nav {
     background-color: slategrey;
