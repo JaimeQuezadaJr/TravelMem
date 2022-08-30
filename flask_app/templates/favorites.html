@@ -48,7 +48,7 @@
         <div class="container">
             <div class="d-flex flex-wrap justify-content-center">  
             {% for memory in favorites.memories %}
-                {% if memory and memory.img_name %} 
+                {% if memory and memory.img_name %}  
                 <div class="card mt-2 mx-4 mb-5 w3-animate-zoom" style="width: 32rem;" > 
                     <img src="{{ url_for('static', filename='images/'+memory.img_name) }}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -57,7 +57,7 @@
                         {{memory.description}}
                         <p class="date">Traveled on {{memory.date.strftime("%B %d, %Y")}}</p>
                         <p class="date">Posted on {{memory.created_at.strftime("%B %d, %Y")}}</p>
-                        <div class="d-flex">
+                        <div class="d-flex flex-wrap">
                             <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
                             <form action="/favorite/unlike/{{memory.id}}" method="post">
                                 <input name="id" type="hidden" value="{{memory.id}}">
