@@ -37,16 +37,20 @@
     </nav>
     <div class="container w3-animate-top mb-4"> 
         <div class="dashboard d-flex justify-content-center mb-3 mt-5">
-            <div class="card mt-5 text-center col-8">
+            <div class="card mt-5 text-center col-8 col-sm-6">
                 <h5 class="card-header">Welcome {{ user.first_name }} !</h5>
+                <span><img src="{{ url_for('static', filename='images/'+user.profile_pic) }}" alt="..." class="rounded-circle mb-3 mt-3"></span>
+                <!-- <p class="m-0">{{user.city}}, {{user.state}}</p>
+                <p>70&deg; Sunny</p> -->
                 <div class="card-body">
                     <h5 class="card-title">Discover Travel Memories</h5>
-                    <p class="card-text">View new travel memories from the users below!</p>
+                    <p class="card-text">View travel memories from the users below!</p>
                     <a href="/memory/new"><button type="button" class="btn btn-light">Share Memory</button></a>
                     <a href="/memory/{{user.id}}"><button type="button" class="btn btn-light">View My Memories</button></a>
                     <a href="/profile/{{user.id}}"><button type="button" class="btn btn-light">View My Profile</button></a>
+                    <a href="/favorites/{{user.id}}"><button type="button" class="btn btn-light">View Favorites</button></a>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="d-flex flex-wrap justify-content-center w3-animate-zoom">
             {% for this_one_user in all_users %}

@@ -39,11 +39,9 @@
         <div class="container">
             <div class="d-flex justify-content-center mt-5">
                 <div class="header mt-5">
-                    {% if session['user_id'] == all_memories.id %}
-                    <h4>My Memories</h4> 
-                    {% else %}
-                    <h4>{{ all_memories.first_name }}'s Memories</h4>
-                    {% endif %}
+                   
+                    <h4>Memory</h4>
+                   
                 </div>
             </div>
         </div>
@@ -51,8 +49,6 @@
     <section>
         <div class="container">
             <div class="d-flex flex-wrap justify-content-center">  
-            {% for memory in all_memories.memories %}
-                {% if memory and memory.img_name %} 
                 <div class="card mt-2 mx-4 mb-5 w3-animate-zoom" style="width: 32rem;" > 
                     <img src="{{ url_for('static', filename='images/'+memory.img_name) }}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -61,40 +57,55 @@
                         {{memory.description}}
                         <p class="date">Traveled on {{memory.date.strftime("%B %d, %Y")}}</p>
                         <p class="date">Posted on {{memory.created_at.strftime("%B %d, %Y")}}</p>
-                        
+                        <a tabindex="0" class="btn btn-sm btn-danger mb-2" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Liked By" data-bs-content=
+                        "{% for names in all_memory_likes.users_who_liked %}
+                        {{names.first_name}} {{names.last_name}} |
+                        {%endfor%}
+                        "
+                        >
+                        Likes {{all_memory_likes.users_who_liked | length}}</a><br>
+                        <div class="d-flex">
                         <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
-                        {% if session['user_id'] == memory.user_id %}
-                        <a href="/memory/edit/{{memory.id}}" class="btn btn-light btn-sm">Edit</a>
-                        <a href="/delete/{{memory.id}}" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="/memory/likes/{{memory.id}}" class="btn btn-light btn-sm">View Likes/Comments</a>
-                        {% else %}
-                        <a href="/memory/likes/{{memory.id}}" class="btn btn-light btn-sm">Like|Comment</a>
-                        {% endif %}
+                        {% if session['user_id'] in all_memory_likes.user_ids_who_liked %}
+                            <form action="/memory/unlike/{{memory.id}}" method="post">
+                                <input name="id" type="hidden" value="{{memory.id}}">
+                                <input name="user_id" type="hidden" value="{{session['user_id']}}">
+                                <button type="submit" class="btn btn-light btn-sm">Unlike</button>
+                            </form>
+                        {%else%}
+                            <form action="/memory/like/{{memory.id}}" method="post">
+                                <input name="id" type="hidden" value="{{memory.id}}">
+                                <input name="user_id" type="hidden" value="{{session['user_id']}}">
+                                <button type="submit" class="btn btn-light btn-sm">Like</button>
+                            </form>
+                        {%endif%}
                         <a href="/weather/{{memory.location}}" class="btn btn-light btn-sm" id="weather">Current Weather</a>
+                        </div>
+                        <!-- <form action="#" method="post">
+                            <label for="location" class="form-label mt-2">Comment</label>
+                            <input type="text" class="form-control" id="location" name="location">
+                            <input type="submit" class="btn btn-light btn-sm" value="Comment">
+                        </form>
+                        <div class="mt-2">
+                            {% for names in all_memory_likes.users_who_liked %}
+                                <p class="mb-0">{{names.first_name}} {{names.last_name}}</p>
+                                <p>Love it!</p>
+                            {%endfor%}
+                        </div> -->
                     </div>
                 </div>
-                {% elif session['user_id'] == all_memories.id %} 
-                <div class="card w3-animate-zoom" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">Please Add Memories</h5>
-                    <p class="card-text">Let people know of your amazing travel experiences!</p>
-                    <a href="/memory/new" class="btn btn-light btn-sm">Share</a>
-                    </div>
-                </div>
-                {% else %}
-                <div class="card w3-animate-zoom" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">{{all_memories.first_name}} does not have any memories at the moment!</h5>
-                    <p class="card-text">Hopefully they will add some soon!</p>
-                    <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
-                    </div>
-                </div>
-                {% endif %}
-            {% endfor %}
             </div>
         </div>
         <div id="footer"></div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            var popoverList = popoverTriggerList.map(function(element){
+                return new bootstrap.Popover(element);
+            });
+        });
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
