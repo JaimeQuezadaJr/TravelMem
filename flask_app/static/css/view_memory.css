@@ -101,3 +101,11 @@ img {
     background-color: slategrey;
     height: 2rem;
  }
+
+ .custom-img {
+    width: auto; 
+    max-width: 100px;
+    height: auto;
+    max-height: 40px;
+    border-radius: 25px;
+}

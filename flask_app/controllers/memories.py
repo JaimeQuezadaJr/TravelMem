@@ -4,7 +4,7 @@ from fileinput import filename
 from re import T
 from flask_app import ALLOWED_EXTENSIONS, app
 from flask import render_template, redirect, request, session, flash, jsonify
-from flask_app.models import memory, user
+from flask_app.models import memory, user, comment
 import json
 import os
 import requests
@@ -169,7 +169,17 @@ def memory_likes(id):
     user_data = {
         'id': session['user_id']
     }
-    return render_template('view_single_memory.html', memory = memory.Memory.get_memory_by_id(data), user = user.User.get_user_by_id(user_data),  all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data))
+    return render_template('view_single_memory.html', memory = memory.Memory.get_memory_by_id(data), user = user.User.get_user_by_id(user_data),  all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data), comment_info = user.User.grab_one_user_with_all_memory_comments(data), comment_creator = memory.Memory.get_all_comments_from_one_memory(data))
+
+@app.route('/comment/delete/<int:id>', methods=['POST'])
+def comment_delete(id):
+    comment.Comment.delete_comment(request.form)
+    return redirect(f'/memory/likes/{id}')
+
+@app.route('/comment/add/<int:id>', methods=['POST'])
+def comment_add(id):
+    comment.Comment.add_comment(request.form)
+    return redirect(f'/memory/likes/{id}')
 
 @app.route('/memory/unlike/<int:id>', methods=['POST'])
 def memory_unlike(id):
