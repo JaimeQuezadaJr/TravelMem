@@ -39,11 +39,7 @@
         <div class="container">
             <div class="d-flex justify-content-center mt-5">
                 <div class="header mt-5">
-                    {% if session['user_id'] == all_memories.id %}
-                    <h4>My Memories</h4> 
-                    {% else %}
-                    <h4>{{ all_memories.first_name }}'s Memories</h4>
-                    {% endif %}
+                    <h4>Favorite Memories</h4> 
                 </div>
             </div>
         </div>
@@ -51,7 +47,7 @@
     <section>
         <div class="container">
             <div class="d-flex flex-wrap justify-content-center">  
-            {% for memory in all_memories.memories %}
+            {% for memory in favorites.memories %}
                 {% if memory and memory.img_name %} 
                 <div class="card mt-2 mx-4 mb-5 w3-animate-zoom" style="width: 32rem;" > 
                     <img src="{{ url_for('static', filename='images/'+memory.img_name) }}" class="card-img-top" alt="...">
@@ -61,16 +57,16 @@
                         {{memory.description}}
                         <p class="date">Traveled on {{memory.date.strftime("%B %d, %Y")}}</p>
                         <p class="date">Posted on {{memory.created_at.strftime("%B %d, %Y")}}</p>
-                        
-                        <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
-                        {% if session['user_id'] == memory.user_id %}
-                        <a href="/memory/edit/{{memory.id}}" class="btn btn-light btn-sm">Edit</a>
-                        <a href="/delete/{{memory.id}}" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="/memory/likes/{{memory.id}}" class="btn btn-light btn-sm">View Likes/Comments</a>
-                        {% else %}
-                        <a href="/memory/likes/{{memory.id}}" class="btn btn-light btn-sm">Like|Comment</a>
-                        {% endif %}
-                        <a href="/weather/{{memory.location}}" class="btn btn-light btn-sm" id="weather">Current Weather</a>
+                        <div class="d-flex">
+                            <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
+                            <form action="/favorite/unlike/{{memory.id}}" method="post">
+                                <input name="id" type="hidden" value="{{memory.id}}">
+                                <input name="user_id" type="hidden" value="{{session['user_id']}}">
+                                <button type="submit" class="btn btn-light btn-sm">Delete</button>
+                            </form>
+                            <a href="/weather/{{memory.location}}" class="btn btn-light btn-sm" id="weather">Current Weather</a>
+                            <a href="/memory/likes/{{memory.id}}" class="btn btn-light btn-sm">Like|Comment</a>
+                        </div>
                     </div>
                 </div>
                 {% elif session['user_id'] == all_memories.id %} 
@@ -91,6 +87,11 @@
                 </div>
                 {% endif %}
             {% endfor %}
+            </div>
+            <div>
+                {%for users in favorites.users%}
+                <p>{{users.first_name}}</p>
+                {%endfor%}
             </div>
         </div>
         <div id="footer"></div>

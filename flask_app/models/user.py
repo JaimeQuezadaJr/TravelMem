@@ -7,7 +7,7 @@ import string
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class User:
-    db_name = "travel_mem_schema"
+    db_name = "travel_mem_schema_many"
     def __init__( self , data ):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -20,7 +20,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.memories = []
-
+ 
     @classmethod
     def get_all_users(cls):
         query = "SELECT * FROM users;"
@@ -74,7 +74,7 @@ class User:
     def validate_user(user):
         is_valid = True
         query = "SELECT * FROM users WHERE email = %(email)s;"
-        results = connectToMySQL('travel_mem_schema').query_db(query, user)
+        results = connectToMySQL('travel_mem_schema_many').query_db(query, user)
         if len(user['first_name']) < 2 or str.isalpha(user['first_name']) == False:
             flash("First Name must be at least 2 characters long.", "register")
             is_valid = False
@@ -130,9 +130,6 @@ class User:
             this_user_instance = cls(results[0]) # Only holds data for the user itself
             # Loop through each memory and then link to the list of memories for this user
             for this_memory_dictionary in results:
-                """
-                Create a movie 
-                """
                 # Create a new dictionary for the user data
                 new_memory_dictionary = {
                     # Table name = table you're joining with - in this case, memories
@@ -180,6 +177,43 @@ class User:
                 user_instance.memories = this_memory_instance
                 user_instances.append(user_instance)
             return user_instances
+
+    @classmethod
+    def grab_one_user_with_all_memory_likes(cls, data):
+        query = '''
+        SELECT * FROM users 
+        JOIN memories ON memories.user_id = users.id
+        LEFT JOIN likes ON memories.id = likes.memory_id
+        WHERE likes.user_id = %(id)s;
+        '''
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        print(results)
+        if len(results) == 0:
+            return None # Return None as we can only get at most one item
+        else:
+            # Create the user
+            this_user_instance = cls(results[0]) # Only holds data for the user itself
+            # Loop through each memory and then link to the list of memories for this user
+            for this_memory_dictionary in results:
+                # Create a new dictionary for the user data
+                new_memory_dictionary = {
+                    # Table name = table you're joining with - in this case, memories
+                    "id": this_memory_dictionary["memories.id"], # Notice the table name here due to duplicate column names!!
+                    "location": this_memory_dictionary["location"],
+                    "country": this_memory_dictionary["country"],
+                    "date": this_memory_dictionary["date"],
+                    "description": this_memory_dictionary["description"],
+                    "img_name": this_memory_dictionary["img_name"],
+                    "user_id": this_memory_dictionary["user_id"],
+                    "created_at": this_memory_dictionary["memories.created_at"], # Notice the table name here due to duplicate column names!!
+                    "updated_at": this_memory_dictionary["memories.updated_at"], # Notice the table name here due to duplicate column names!!
+                }
+                # Creating a memory
+                this_memory_instance = memory.Memory(new_memory_dictionary)
+                # Add this memory to the list of memories for this user
+                this_user_instance.memories.append(this_memory_instance)
+            # Return the user - with all memories linked
+            return this_user_instance
 
     
     #WHEN TypeERROR : object of type 'bool' has no len() it usually means the table name in your query is incorrect!!!!

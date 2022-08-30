@@ -1,3 +1,5 @@
+from crypt import methods
+from dataclasses import dataclass
 from fileinput import filename
 from re import T
 from flask_app import ALLOWED_EXTENSIONS, app
@@ -157,5 +159,41 @@ def memory_info(id):
     user_data = {
         'id': session['user_id']
     }
-    return render_template('view_memory.html', this_memory = memory.Memory.get_memory_by_user(data), user = user.User.get_user_by_id(user_data), all_memories = user.User.grab_one_user_with_all_memories(data))
+    return render_template('view_memory.html', this_memory = memory.Memory.get_memory_by_user(data), user = user.User.get_user_by_id(user_data), all_memories = user.User.grab_one_user_with_all_memories(data), all_likes = memory.Memory.get_all_likes(), all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data))
 
+@app.route('/memory/likes/<int:id>')
+def memory_likes(id):
+    data = {
+        'id': id
+    }
+    user_data = {
+        'id': session['user_id']
+    }
+    return render_template('view_single_memory.html', memory = memory.Memory.get_memory_by_id(data), user = user.User.get_user_by_id(user_data),  all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data))
+
+@app.route('/memory/unlike/<int:id>', methods=['POST'])
+def memory_unlike(id):
+    memory.Memory.unlike(request.form)
+    return redirect(f'/memory/likes/{id}')
+
+@app.route('/favorite/unlike/<int:id>', methods=['POST'])
+def favorite_delete(id):
+    memory.Memory.unlike(request.form)
+    return redirect(f'/favorites/{id}')
+
+@app.route('/memory/like/<int:id>', methods=['POST'])
+def memory_like(id):
+    memory.Memory.like(request.form)
+    return redirect(f'/memory/likes/{id}')
+
+@app.route('/favorites/<int:id>')
+def favorite_info(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = {
+        'id':id,
+    }
+    user_data = {
+        'id': session['user_id']
+    }
+    return render_template('favorites.html', this_memory = memory.Memory.get_memory_by_user(data), user = user.User.get_user_by_id(user_data), all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data), favorites = user.User.grab_one_user_with_all_memory_likes(user_data))
