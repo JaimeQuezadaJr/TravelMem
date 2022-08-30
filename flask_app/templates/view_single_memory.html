@@ -81,17 +81,33 @@
                         {%endif%}
                         <a href="/weather/{{memory.location}}" class="btn btn-light btn-sm" id="weather">Current Weather</a>
                         </div>
-                        <!-- <form action="#" method="post">
+                        <form action="/comment/add/{{memory.id}}" method="post">
                             <label for="location" class="form-label mt-2">Comment</label>
-                            <input type="text" class="form-control" id="location" name="location">
-                            <input type="submit" class="btn btn-light btn-sm" value="Comment">
+                            <input name="comment" type="text" class="form-control" id="comment" >
+                            <input name="id" type="hidden" value="{{memory.id}}">
+                            <input name="user_id" type="hidden" value="{{session['user_id']}}">
+                            <input type="submit" class="btn btn-light btn-sm mt-2" value="Add Comment">
                         </form>
                         <div class="mt-2">
-                            {% for names in all_memory_likes.users_who_liked %}
-                                <p class="mb-0">{{names.first_name}} {{names.last_name}}</p>
-                                <p>Love it!</p>
+                            
+                            {%for name in comment_creator.users_who_commented%}
+                            <p class="mb-0"><img src="{{ url_for('static', filename='images/'+name.profile_pic) }}" class="custom-img m-2" alt="...">{{name.first_name}} {{name.last_name}}</p>
+                                {% for comments in comment_info.comments %}
+                                {%if name.id == comments.user_id%}
+                                <p class="date mx-5">{{comments.comment}}</p>
+                                {% if session['user_id'] == comments.user_id %}
+                                <form action="/comment/delete/{{memory.id}}" method="post">
+                                    <input name="id" type="hidden" value="{{memory.id}}">
+                                    <input name="user_id" type="hidden" value="{{session['user_id']}}">
+                                    <button type="submit" class="btn btn-light btn-sm">Delete</button>
+                                </form>
+                                {%endif%}
+                                {%endif%}
+                                {%endfor%}
+                                
+                                
                             {%endfor%}
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>

@@ -11,3 +11,14 @@ class Comment:
         self.user_id = data['user_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+
+    @classmethod
+    def add_comment(cls,data):
+        query = "INSERT INTO comments (comment, memory_id, user_id) VALUES (%(comment)s, %(id)s, %(user_id)s);"
+        return connectToMySQL(cls.db_name).query_db( query, data)
+
+    @classmethod
+    def delete_comment(cls,data):
+        query = "DELETE FROM comments WHERE memory_id = %(id)s AND user_id = %(user_id)s;"
+        # data is a dictionary that will be passed into the save method from server.py
+        return connectToMySQL(cls.db_name).query_db( query, data )

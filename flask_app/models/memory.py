@@ -18,7 +18,8 @@ class Memory:
         self.likes_data = []
         self.users_who_liked = []
         self.user_ids_who_liked =[]
-        self.comments = []
+        self.users_who_commented = []
+        self.user_ids_who_commented = []
 
     @classmethod
     def get_all_likes_from_one_memory(cls,data):
@@ -72,6 +73,60 @@ class Memory:
                     this_user_like_instance = user.User(user_who_liked_data)
                     memory_instance.users_who_liked.append(this_user_like_instance)
                     memory_instance.user_ids_who_liked.append(memory_dictionary['users_who_liked.id'])
+            return memory_instance
+
+    @classmethod
+    def get_all_comments_from_one_memory(cls,data):
+        query = ''' 
+                    SELECT * FROM memories JOIN users AS creators ON memories.user_id = creators.id
+                    LEFT JOIN comments ON memories.id = comments.memory_id
+                    LEFT JOIN users as users_who_commented on comments.user_id=users_who_commented.id
+                    WHERE memories.id = %(id)s; 
+                '''
+        results = connectToMySQL(cls.db_name).query_db(query,data)
+        # Create an empty list to append our instances of memories
+        # Iterate over the db results and create instances of memories with cls.
+        print(results)
+        if len(results) == 0:
+            return []
+        else:
+            new_memory = True
+            for memory_dictionary in results:
+                if new_memory:
+                    memory_instance = cls(memory_dictionary)
+                    this_user_dictionary = {
+                        "id": memory_dictionary['creators.id'],
+                        "first_name": memory_dictionary['first_name'],
+                        "last_name": memory_dictionary['last_name'],
+                        "city": memory_dictionary['city'],
+                        "state": memory_dictionary['state'],
+                        "email": memory_dictionary['email'],
+                        "password": memory_dictionary['password'],
+                        "profile_pic": memory_dictionary['profile_pic'],
+                        "created_at": memory_dictionary['creators.created_at'],
+                        "updated_at": memory_dictionary['creators.updated_at'],
+                    }
+                    this_user_instance = user.User(this_user_dictionary)
+                    memory_instance.this_user_instance = this_user_instance 
+                    new_memory = False
+
+                if memory_dictionary['users_who_commented.id']:
+                    user_who_commented_data = {
+                    "id": memory_dictionary['users_who_commented.id'],
+                    "first_name": memory_dictionary['users_who_commented.first_name'],
+                    "last_name": memory_dictionary['users_who_commented.last_name'],
+                    "city": memory_dictionary['users_who_commented.city'],
+                    "state": memory_dictionary['users_who_commented.state'],
+                    "email": memory_dictionary['users_who_commented.email'],
+                    "password": memory_dictionary['users_who_commented.password'],
+                    "profile_pic": memory_dictionary['users_who_commented.profile_pic'],
+                    "created_at": memory_dictionary['users_who_commented.created_at'],
+                    "updated_at": memory_dictionary['users_who_commented.updated_at'],
+                }
+                    
+                    this_user_like_instance = user.User(user_who_commented_data)
+                    memory_instance.users_who_commented.append(this_user_like_instance)
+                    memory_instance.user_ids_who_commented.append(memory_dictionary['users_who_commented.id'])
             return memory_instance
 
 

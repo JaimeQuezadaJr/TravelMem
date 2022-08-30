@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash, request  
-from flask_app.models import memory, user      
+from flask_app.models import memory, user, comment      
 import re
 import string
 
@@ -20,6 +20,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.memories = []
+        self.comments = []
  
     @classmethod
     def get_all_users(cls):
@@ -212,6 +213,40 @@ class User:
                 this_memory_instance = memory.Memory(new_memory_dictionary)
                 # Add this memory to the list of memories for this user
                 this_user_instance.memories.append(this_memory_instance)
+            # Return the user - with all memories linked
+            return this_user_instance
+
+    @classmethod
+    def grab_one_user_with_all_memory_comments(cls, data):
+        query = '''
+        SELECT * FROM users 
+        JOIN memories ON memories.user_id = users.id
+        LEFT JOIN comments ON memories.id = comments.memory_id
+        WHERE comments.memory_id = %(id)s;
+        '''
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        print(results)
+        if len(results) == 0:
+            return None # Return None as we can only get at most one item
+        else:
+            # Create the user
+            this_user_instance = cls(results[0]) # Only holds data for the user itself
+            # Loop through each memory and then link to the list of memories for this user
+            for this_comment_dictionary in results:
+                # Create a new dictionary for the user data
+                new_comment_dictionary = {
+                    # Table name = table you're joining with - in this case, memories
+                    "id": this_comment_dictionary["comments.id"], # Notice the table name here due to duplicate column names!!
+                    "comment": this_comment_dictionary["comment"],
+                    "memory_id": this_comment_dictionary["memory_id"],
+                    "user_id": this_comment_dictionary["comments.user_id"],
+                    "created_at": this_comment_dictionary["comments.created_at"], # Notice the table name here due to duplicate column names!!
+                    "updated_at": this_comment_dictionary["comments.updated_at"], # Notice the table name here due to duplicate column names!!
+                }
+                # Creating a comment
+                this_comment_instance = comment.Comment(new_comment_dictionary)
+                # Add this comment to the list of memories for this user
+                this_user_instance.comments.append(this_comment_instance)
             # Return the user - with all memories linked
             return this_user_instance
 
