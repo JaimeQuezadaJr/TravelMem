@@ -208,7 +208,7 @@ class User:
                     "user_id": this_memory_dictionary["user_id"],
                     "created_at": this_memory_dictionary["memories.created_at"], # Notice the table name here due to duplicate column names!!
                     "updated_at": this_memory_dictionary["memories.updated_at"], # Notice the table name here due to duplicate column names!!
-                }
+                } 
                 # Creating a memory
                 this_memory_instance = memory.Memory(new_memory_dictionary)
                 # Add this memory to the list of memories for this user

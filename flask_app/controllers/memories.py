@@ -206,4 +206,4 @@ def favorite_info(id):
     user_data = {
         'id': session['user_id']
     }
-    return render_template('favorites.html', this_memory = memory.Memory.get_memory_by_user(data), user = user.User.get_user_by_id(user_data), all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data), favorites = user.User.grab_one_user_with_all_memory_likes(user_data))
+    return render_template('favorites.html', this_memory = memory.Memory.get_memory_by_user(data), user = user.User.get_user_by_id(user_data), all_memory_likes=memory.Memory.get_all_likes_from_one_memory(data), favorites = user.User.grab_one_user_with_all_memory_likes(user_data)) 

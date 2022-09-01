@@ -69,29 +69,24 @@
                         </div>
                     </div>
                 </div>
-                {% elif session['user_id'] == all_memories.id %} 
+                <!-- {% elif session['user_id'] == memory.user_id %} 
                 <div class="card w3-animate-zoom" style="width: 18rem;">
                     <div class="card-body">
                     <h5 class="card-title">Please Add Memories</h5>
                     <p class="card-text">Let people know of your amazing travel experiences!</p>
                     <a href="/memory/new" class="btn btn-light btn-sm">Share</a>
                     </div>
-                </div>
+                </div> -->
                 {% else %}
                 <div class="card w3-animate-zoom" style="width: 18rem;">
                     <div class="card-body">
-                    <h5 class="card-title">{{all_memories.first_name}} does not have any memories at the moment!</h5>
+                    <h5 class="card-title">Does not have any memories at the moment!</h5>
                     <p class="card-text">Hopefully they will add some soon!</p>
                     <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
                     </div>
                 </div>
                 {% endif %}
             {% endfor %}
-            </div>
-            <div>
-                {%for users in favorites.users%}
-                <p>{{users.first_name}}</p>
-                {%endfor%}
             </div>
         </div>
         <div id="footer"></div>
