@@ -326,7 +326,7 @@ class Memory:
         list_of_memory_instances =[]
         print(results)
         if len(results) == 0:
-            return []
+            return []  
         else:
             for this_memory_dictionary in results:
                 this_memory_instance = cls(this_memory_dictionary)
