@@ -46,7 +46,8 @@
     </section> 
     <section>
         <div class="container">
-            <div class="d-flex flex-wrap justify-content-center">  
+            <div class="d-flex flex-wrap justify-content-center">
+            {% if favorites.memories %}  
             {% for memory in favorites.memories %}
                 {% if memory and memory.img_name %}  
                 <div class="card mt-2 mx-4 mb-5 w3-animate-zoom" style="width: 32rem;" > 
@@ -69,24 +70,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- {% elif session['user_id'] == memory.user_id %} 
-                <div class="card w3-animate-zoom" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">Please Add Memories</h5>
-                    <p class="card-text">Let people know of your amazing travel experiences!</p>
-                    <a href="/memory/new" class="btn btn-light btn-sm">Share</a>
-                    </div>
-                </div> -->
-                {% else %}
-                <div class="card w3-animate-zoom" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">Does not have any memories at the moment!</h5>
-                    <p class="card-text">Hopefully they will add some soon!</p>
-                    <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
-                    </div>
-                </div>
                 {% endif %}
             {% endfor %}
+            {% else %}
+                <div class="card w3-animate-zoom" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">No favorites at the moment!</h5>
+                        <p class="card-text">Go like some memories!</p>
+                        <a href="/dashboard" class="btn btn-light btn-sm">Home</a>
+                    </div>
+                </div>
+            {% endif %}
             </div>
         </div>
         <div id="footer"></div>
