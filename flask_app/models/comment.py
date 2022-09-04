@@ -27,6 +27,6 @@ class Comment:
     def validate_comment(comment):
         is_valid = True
         if len(comment['comment']) < 1:
-            flash("Empty comment field")
+            flash("Empty comment field!", "comment")
             is_valid = False
         return is_valid

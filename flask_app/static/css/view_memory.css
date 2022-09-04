@@ -109,3 +109,8 @@ img {
     max-height: 40px;
     border-radius: 25px;
 }
+
+.validation {
+    color: red;
+    font-weight: 500;
+}
