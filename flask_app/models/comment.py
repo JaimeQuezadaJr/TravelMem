@@ -22,3 +22,11 @@ class Comment:
         query = "DELETE FROM comments WHERE memory_id = %(id)s AND user_id = %(user_id)s;"
         # data is a dictionary that will be passed into the save method from server.py
         return connectToMySQL(cls.db_name).query_db( query, data )
+
+    @staticmethod
+    def validate_comment(comment):
+        is_valid = True
+        if len(comment['comment']) < 1:
+            flash("Empty comment field")
+            is_valid = False
+        return is_valid

@@ -178,6 +178,8 @@ def comment_delete(id):
 
 @app.route('/comment/add/<int:id>', methods=['POST'])
 def comment_add(id):
+    if not comment.Comment.validate_comment(request.form):
+        return redirect(f'/memory/likes/{id}')
     comment.Comment.add_comment(request.form)
     return redirect(f'/memory/likes/{id}')
 
