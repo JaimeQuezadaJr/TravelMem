@@ -12,7 +12,7 @@
 * Integrated Open Weather API to view up-to-date weather from the travel locations.
 * Implemented Bootstrap for responsive design and styled with HTML5 and CSS for engaging UI components and page layouts.
 
-#### Deployed on Amazon EC2
+### Deployed on Amazon EC2
 * http://54.183.190.56
 
 ### Project Demo
