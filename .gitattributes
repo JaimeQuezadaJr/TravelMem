@@ -1,2 +1,2 @@
-*.html linguist-language=Python
-*.Python linguist-language=html
+# *.html linguist-language=Python
+# *.Python linguist-language=html
