@@ -14,4 +14,4 @@
 
 
 ### Project Demo
-![Main](https://thumbs.gfycat.com/PersonalActualCrownofthornsstarfish-size_restricted.gif)
+https://jaimequezadajr.github.io/new-portfolio
